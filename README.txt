@@ -1,0 +1,1 @@
+This is the Purgatory mod for Minecraft. This requires the Minecraft Forge Mod and was made for the Minecraft Mod Jam.
