@@ -1,6 +1,7 @@
 package aurena.purgatory;
 
 import aurena.purgatory.block.BlockDuskOre;
+import aurena.purgatory.item.ItemDuskGem;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -41,11 +42,10 @@ public class Purgatory
 	{
 		
 	}
-	
+	//TODO Change all Item and Block ID's to free ID's according to the ID List
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
-		
 		//Blocks
 		
 		//Ores
@@ -59,6 +59,16 @@ public class Purgatory
 		//Block Naming
 		
 		LanguageRegistry.addName(oreDusk, "Dusk Ore");
+		
+		//Items
+		
+		//Ore Items
+		
+		gemDusk = new ItemDuskGem(9001).setUnlocalizedName("gemDusk");
+		
+		//Item Naming
+		
+		LanguageRegistry.addName(gemDusk, "Dusk Gem");
 		
 	}
 
