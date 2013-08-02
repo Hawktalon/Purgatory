@@ -2,11 +2,14 @@ package aurena.purgatory;
 
 import aurena.purgatory.block.BlockDuskOre;
 import aurena.purgatory.item.ItemDuskGem;
-import aurena.purgatory.worldgen.biome.BiomeGenShadowedFields;
+import aurena.purgatory.world.dimension.DimensionIDMulti;
+import aurena.purgatory.world.dimension.provider.world.WorldProviderPurgatory;
+import aurena.purgatory.world.gen.biome.BiomeGenShadowedFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.DimensionManager;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -38,6 +41,10 @@ public class Purgatory
 	//Item List
 	
 	public static Item gemDusk;
+	
+	//Dimension IDs
+	
+	public static int DimID = DimensionIDMulti.DIMID_1;
 	
 	//Biome List
 	
@@ -79,6 +86,11 @@ public class Purgatory
 		//Biomes
 		
 		biomeShadowedFields = new BiomeGenShadowedFields(58);
+		
+		//Dimensions
+		
+		//TODO Make config allowing to keep the dimension loaded or not.
+		DimensionManager.registerProviderType(DimID, WorldProviderPurgatory.class, false);
 		
 	}
 
