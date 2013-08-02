@@ -2,9 +2,11 @@ package aurena.purgatory;
 
 import aurena.purgatory.block.BlockDuskOre;
 import aurena.purgatory.item.ItemDuskGem;
+import aurena.purgatory.worldgen.biome.BiomeGenShadowedFields;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.world.biome.BiomeGenBase;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -36,6 +38,10 @@ public class Purgatory
 	//Item List
 	
 	public static Item gemDusk;
+	
+	//Biome List
+	
+	public static BiomeGenBase biomeShadowedFields;
 	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent eventPre)
@@ -69,6 +75,10 @@ public class Purgatory
 		//Item Naming
 		
 		LanguageRegistry.addName(gemDusk, "Dusk Gem");
+		
+		//Biomes
+		
+		biomeShadowedFields = new BiomeGenShadowedFields(58);
 		
 	}
 
