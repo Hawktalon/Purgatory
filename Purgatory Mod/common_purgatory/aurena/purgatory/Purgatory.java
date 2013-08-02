@@ -1,5 +1,6 @@
 package aurena.purgatory;
 
+import aurena.purgatory.block.BlockDuskOre;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -11,6 +12,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 @Mod(modid= "purgatory", name = "Purgatory Mod", version = "1.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
@@ -27,11 +30,11 @@ public class Purgatory
 	
 	//Block List
 	
-	public static Block woodDead;
+	public static Block oreDusk;
 	
 	//Item List
 	
-	public static Item deathEssence;
+	public static Item gemDusk;
 	
 	@EventHandler
 	public void PreInit(FMLPreInitializationEvent eventPre)
@@ -42,6 +45,20 @@ public class Purgatory
 	@EventHandler
 	public void Init(FMLInitializationEvent event)
 	{
+		
+		//Blocks
+		
+		//Ores
+		
+		oreDusk = new BlockDuskOre(500).setUnlocalizedName("oreDusk");
+		
+		//Block Registry
+		
+		GameRegistry.registerBlock(oreDusk, oreDusk.getUnlocalizedName());
+		
+		//Block Naming
+		
+		LanguageRegistry.addName(oreDusk, "Dusk Ore");
 		
 	}
 
