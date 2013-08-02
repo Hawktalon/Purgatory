@@ -9,10 +9,9 @@ import net.minecraftforge.common.DimensionManager;
 public class WorldProviderPurgatory extends WorldProvider
 {
 
-	public void registerChunkManager()
+	public void registerWorldChunkManager()
 	{
 		this.worldChunkMgr = new WorldChunkManagerPurgatory(worldObj.getSeed(), terrainType);
-		//TODO IF the sky looks too weird, change this to true
 		this.hasNoSky = true;
 	}
 	
@@ -23,12 +22,7 @@ public class WorldProviderPurgatory extends WorldProvider
 	
 	public static WorldProvider getProviderForDimension(int id)
 	{
-		return DimensionManager.createProviderFor(DimensionIDMulti.DIMID_1);
-	}
-	
-	public String getWelcomeMessage()
-	{
-		return "Taking your soul to Death's Realm";
+		return DimensionManager.getProvider(DimensionIDMulti.DIMID_1);
 	}
 	
 	public IChunkProvider createChunkGenerator()
@@ -36,20 +30,15 @@ public class WorldProviderPurgatory extends WorldProvider
 		return new ChunkProviderPurgatory(worldObj, worldObj.getSeed(), true);
 	}
 	
-	//TODO Enable change in config
 	public boolean canRespawnHere()
 	{
 		return true;
 	}
 	
-	protected String setUserMessage(String par1String)
+	public int getReturnDimension(EntityPlayerMP player)
 	{
-		return "Taking your soul to Death's Realm";
+		return DimensionIDMulti.DIMID_1;
 	}
 	
-	public int getRepawnDimension(EntityPlayerMP player)
-	{
-		return 4;
-	}
 }
 	
