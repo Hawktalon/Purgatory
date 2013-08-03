@@ -8,6 +8,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.IProgressUpdate;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.ChunkPosition;
+import net.minecraft.world.SpawnerAnimals;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
@@ -17,6 +18,7 @@ import net.minecraft.world.gen.MapGenCaves;
 import net.minecraft.world.gen.MapGenRavine;
 import net.minecraft.world.gen.NoiseGeneratorOctaves;
 import net.minecraft.world.gen.feature.MapGenScatteredFeature;
+import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
@@ -212,10 +214,9 @@ public class ChunkProviderPurgatory implements IChunkProvider
 		}
 	}
 	
-	@Override
-	public boolean chunkExists(int i, int j) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean chunkExists(int par1, int par2) 
+	{
+		return true;
 	}
 
 	public Chunk loadChunk(int par1, int par2) 
@@ -368,66 +369,99 @@ public class ChunkProviderPurgatory implements IChunkProvider
 		return NoiseArray;
 	}
 
-	@Override
-	public void populate(IChunkProvider ichunkprovider, int i, int j) 
+	public void populate(IChunkProvider ichunkprovider, int par2, int par3) 
 	{
-
+		net.minecraft.block.BlockSand.fallInstantly = false;
+		int var4 = par2 * 16;
+		int var5 = par3 * 16;
+		BiomeGenBase var6 = this.worldObj.getBiomeGenForCoords(var4 + 16, var5 + 16);
+		this.rand.setSeed(this.worldObj.getSeed());
+		long var7 = this.rand.nextLong() / 2L * 2L + 1L;
+		long var9 = this.rand.nextLong() / 2L * 2L + 1L;
+		this.rand.setSeed(par2 * var7 + par3 * var9 ^ this.worldObj.getSeed());
+		boolean var11 = false;
+		if (this.mapFeaturesEnabled)
+		{
+			this.mineshaftGenerator.generateStructuresInChunk(this.worldObj, this.rand, par2, par3);
+			this.scatteredFeaturesGenerator.generateStructuresInChunk(this.worldObj, this.rand, par2, par3);
+		}
+		if ((!var11) && (this.rand.nextInt(4) == 0))
+		{
+			int var12 = var4 + this.rand.nextInt(16) + 8;
+			int var13 = this.rand.nextInt(128);
+			int var14 = var5 + this.rand.nextInt(16) + 8;
+			new WorldGenLakes(Block.lavaStill.blockID).generate(this.worldObj, this.rand, var12, var13, var14);
+		}
+		var6.decorate(this.worldObj, this.rand, var4, var5);
+		SpawnerAnimals.performWorldGenSpawning(this.worldObj, var6, var4 + 8, var5 + 8, 16, 16, this.rand);
+		var4 += 8;
+		var5 += 8;
+		for (int var12 = 0; var12 < 16; var12++)
+		{
+			for (int var13 = 0; var13 < 16; var13++)
+			{
+				int var14 = this.worldObj.getPrecipitationHeight(var4 + var12, var5 + var13);
+				if (this.worldObj.isBlockFreezable(var12 + var4, var14 - 1, var13 + var5))
+				{
+					this.worldObj.setBlock(var12 + var4, var14 - 1, var14 + var5, Block.ice.blockID);
+				}
+				if (this.worldObj.canSnowAt(var12 + var4, var14, var14 + var5));
+				{
+					this.worldObj.setBlock(var12 + var4, var14 - 1, var13 + var5, Block.snow.blockID);
+				}
+			}
+		}
+		net.minecraft.block.BlockSand.fallInstantly = false;
 	}
 
-	@Override
-	public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) {
-		// TODO Auto-generated method stub
+	public boolean saveChunks(boolean flag, IProgressUpdate iprogressupdate) 
+	{
+		return true;
+	}
+
+	public boolean unloadQueuedChunks() 
+	{
 		return false;
 	}
 
-	@Override
-	public boolean unloadQueuedChunks() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean canSave() 
+	{
+		return true;
 	}
 
-	@Override
-	public boolean canSave() {
-		// TODO Auto-generated method stub
-		return false;
+	public String makeString() 
+	{
+		return "RandomLevelSource";
 	}
 
-	@Override
-	public String makeString() {
-		// TODO Auto-generated method stub
+	public List getPossibleCreatures(EnumCreatureType enumcreaturetype, int par2, int par3, int par4) 
+	{
+		BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(par2, par4);
+		return var5 == null ? null : var5.getSpawnableList(enumcreaturetype);
+	}
+
+	//TODO use this for "Death's Castle"
+	public ChunkPosition findClosestStructure(World world, String s, int i, int j, int k)
+	{
 		return null;
 	}
 
-	@Override
-	public List getPossibleCreatures(EnumCreatureType enumcreaturetype, int i,
-			int j, int k) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ChunkPosition findClosestStructure(World world, String s, int i,
-			int j, int k) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getLoadedChunkCount() {
-		// TODO Auto-generated method stub
+	public int getLoadedChunkCount() 
+	{
 		return 0;
 	}
-
-	@Override
-	public void recreateStructures(int i, int j) {
-		// TODO Auto-generated method stub
-
+	
+	public boolean unload100oldestChunks()
+	{
+		return false;
 	}
-
+	
+	public void recreateStructures(int i, int j) 
+	{
+	}
 	@Override
-	public void func_104112_b() {
-		// TODO Auto-generated method stub
-
+	public void func_104112_b() 
+	{
 	}
 
 }
