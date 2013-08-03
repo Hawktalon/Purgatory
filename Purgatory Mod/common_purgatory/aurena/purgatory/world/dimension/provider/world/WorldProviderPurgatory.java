@@ -2,6 +2,7 @@ package aurena.purgatory.world.dimension.provider.world;
 
 import aurena.purgatory.world.dimension.DimensionIDMulti;
 import aurena.purgatory.world.dimension.manager.WorldChunkManagerPurgatory;
+import aurena.purgatory.world.dimension.provider.chunks.ChunkProviderPurgatory;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.chunk.IChunkProvider;

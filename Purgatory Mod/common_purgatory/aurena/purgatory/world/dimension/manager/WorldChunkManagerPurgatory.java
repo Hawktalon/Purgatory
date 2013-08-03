@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import aurena.purgatory.Purgatory;
+import aurena.purgatory.world.dimension.gen.LayerGenPurgatory;
 import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
@@ -34,7 +35,7 @@ public class WorldChunkManagerPurgatory extends WorldChunkManager
 	public WorldChunkManagerPurgatory(long seed, WorldType worldtype)
 	{
 		this();
-		GenLayer[] genlayer = LayerGenPurgatory.makeWorld(seed);
+		GenLayer[] genlayer = LayerGenPurgatory.makeTheWorld(seed);
 		this.genBiomes = genlayer[0];
 		this.biomeLayer = genlayer[1];
 	}
