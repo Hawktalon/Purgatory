@@ -152,7 +152,8 @@ public class ChunkProviderPurgatory implements IChunkProvider
 					{
 						ByteArray[var17] = ((byte)Block.grass.blockID);
 					}
-					else
+					//TODO This might not work properly
+					//else
 					{
 						byte var18 = ByteArray[var17];
 						if (var18 == 8)
@@ -270,8 +271,10 @@ public class ChunkProviderPurgatory implements IChunkProvider
 		this.noise3 = this.noiseGen3.generateNoiseOctaves(this.noise3, par2, par3, par4, k, par6, par7, var44 / 80.0D, var45 / 160.0D, var44 / 80.0D);
 		this.noise2 = this.noiseGen2.generateNoiseOctaves(this.noise2, par2, par3, par4, k, par6, par7, var44, var45, var44);
 		this.noise1 = this.noiseGen1.generateNoiseOctaves(this.noise1, par2, par3, par4, k, par6, par7, var44, var45, var44);
-		boolean var12 = false;
-		boolean var13 = false;
+		boolean flag1 = false;
+		boolean flag2 = false;
+		int var12 = 0;
+		int var13 = 0;
 		for (int var14 = 0; var14 < k; var14++)
 		{
 			for (int var15 = 0; var15 < par7; var15++)
@@ -361,8 +364,8 @@ public class ChunkProviderPurgatory implements IChunkProvider
 					}
 				}
 			}
-			return NoiseArray;
 		}
+		return NoiseArray;
 	}
 
 	@Override
