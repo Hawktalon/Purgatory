@@ -19,7 +19,7 @@ public class WorldProviderPurgatory extends WorldProvider
 	
 	public String getDimensionName()
 	{
-		return "Purgatory";
+		return "Purgatory Realm";
 	}
 	
 	public static WorldProvider getProviderForDimension(int id)
@@ -36,7 +36,7 @@ public class WorldProviderPurgatory extends WorldProvider
 	{
 		return true;
 	}
-	
+
 	public int getReturnDimension(EntityPlayerMP player)
 	{
 		return DimensionIDMulti.DIMID_1;
